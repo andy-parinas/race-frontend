@@ -16,11 +16,11 @@ const prefsQuery = computed(() => {
         <li
             v-for="race in props.races"
             :key="race.id"
-            class="relative flex-1 justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 hover:cursor-pointer sm:px-6"
+            class="relative flex justify-between"
         >
             <NuxtLink
-                :to="`/races/next/results/${race.id}?${prefsQuery}`"
-                class="min-w-0"
+                :to="`/races/next/results/${race.id}?`"
+                class="flex-1 gap-x-6 px-4 py-5 hover:bg-gray-50 hover:cursor-pointer sm:px-6"
             >
                 <div class="flex-1 flex items-center justify-between gap-x-3">
                     <div class="flex items-start gap-x-3">
