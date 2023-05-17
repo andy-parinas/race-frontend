@@ -62,13 +62,13 @@ const props = defineProps(["meetings"]);
                     </div>
                 </div>
             </div>
-            <Link
-                to="races/details"
-                class="flex items-center text-xs lg:text-sm text-gray-500 hover:text-gray-700 mt-3 w-fit"
+            <NuxtLink
+                :to="`/races/all/details/${meeting.id}`"
+                class="flex items-center text-xs lg:text-sm text-orange-500 hover:text-orange-700 mt-3 w-fit"
             >
                 Details
                 <ChevronDoubleRightIcon class="h-4 w-4" />
-            </Link>
+            </NuxtLink>
         </li>
     </ul>
 </template>

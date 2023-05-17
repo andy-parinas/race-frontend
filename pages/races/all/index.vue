@@ -325,6 +325,38 @@ const meetings = [
         ],
     },
 ];
+
+const selectedDate = ref(null);
+// const selectedDate = ref(new Date().toLocaleDateString());
+const selectedState = ref(null);
+
+const races = ref([]);
+
+// const { data: races, refresh } = await useFetch(
+//     `https://6460a8a7ca2d89f7e75c3518.mockapi.io/api/v1/races?date=${selectedDate.value}`
+// );
+
+function dateChanged(date) {
+    selectedDate.value = date;
+    // refresh();
+}
+
+watch(
+    [selectedDate, selectedState],
+    async ([newDate, newState], [oldDate, oldState]) => {
+        if (selectedDate.value || selectedState.value) {
+            const response = await $fetch(
+                `https://6460a8a7ca2d89f7e75c3518.mockapi.io/api/v1/races?date=${selectedDate.value}`
+            );
+            console.log("call API here", response);
+            races.value = response;
+        }
+    }
+);
+
+onMounted(() => {
+    selectedDate.value = new Date().toLocaleDateString();
+});
 </script>
 <template>
     <div>
@@ -333,8 +365,13 @@ const meetings = [
         >
             <h1 className="text-base font-semibold leading-7">All Races</h1>
         </header>
-        <DaysSelection />
+        <DaysSelection @on-day-change="(date) => dateChanged(date)" />
         <StateSelections />
-        <AllRaceList :meetings="meetings" />
+        <div v-if="races.length > 0">
+            <AllRaceList :meetings="meetings" />
+        </div>
+        <div v-else>
+            No Races found for the selected date and state. Please try again.
+        </div>
     </div>
 </template>
