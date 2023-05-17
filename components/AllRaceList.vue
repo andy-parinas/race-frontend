@@ -39,7 +39,7 @@ const props = defineProps(["meetings"]);
                     </div>
                 </div>
                 <div
-                    class="flex items-center justify-between w-full gap-x-5 mt-3 overflow-auto"
+                    class="flex items-center justify-start w-full gap-x-5 mt-3 overflow-auto"
                 >
                     <div
                         v-for="race in meeting.races"
