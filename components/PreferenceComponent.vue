@@ -1,5 +1,37 @@
 <script setup>
 import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/20/solid";
+
+const preferences = ref([
+    // { name: "track", title: "Track" },
+    // { name: "distance", title: "Distance" },
+    { name: "track_distance", title: "Trk/Dist" },
+    // { name: "current_jockey", title: "Horse/Jockey" },
+    { name: "good", title: "Good" },
+    { name: "heavy", title: "Heavy" },
+    { name: "soft", title: "Soft" },
+    { name: "synthetic", title: "Synthetic" },
+    // { name: "first_up", title: "First Up" },
+    { name: "second_up", title: "Second Up" },
+]);
+
+const selectedPreferences = ref([
+    { name: "track", title: "Track" },
+    { name: "distance", title: "Distance" },
+    { name: "current_jockey", title: "Horse/Jockey" },
+    { name: "first_up", title: "First Up" },
+]);
+
+const openModal = ref(false);
+
+function resetSelectedPreferences() {
+    selectedPreferences.value = [];
+}
+
+function addPreference() {
+    if (selectedPreferences.value.length < 3) {
+        openModal.value = true;
+    }
+}
 </script>
 <template>
     <aside
@@ -11,12 +43,15 @@ import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/20/solid";
             <h2 class="text-base font-semibold leading-7">Preferences</h2>
             <div class="flex items-center gap-x-1">
                 <button
+                    v-if="selectedPreferences.length < 3"
+                    @click="addPreference"
                     type="button"
                     class="inline-flex items-center gap-x-1.5 rounded-md text-blue-600 px-2.5 py-1.5 text-sm font-semibold hover:text-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                 >
                     <PlusIcon class="h-5 w-5" aria-hidden="true" />
                 </button>
                 <button
+                    @click="resetSelectedPreferences"
                     type="button"
                     class="inline-flex items-center gap-x-1.5 rounded-md px-2.5 py-1.5 text-sm font-semibold text-green-600 hover:text-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                 >
@@ -24,6 +59,12 @@ import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/20/solid";
                 </button>
             </div>
         </header>
-        <PreferenceList />
+        <PreferenceList :selected-preferences="selectedPreferences" />
     </aside>
+    <AddPReferenceModal
+        :preferences="preferences"
+        :selectedPreferences="selectedPreferences"
+        :open="openModal"
+        @close="openModal = false"
+    />
 </template>
