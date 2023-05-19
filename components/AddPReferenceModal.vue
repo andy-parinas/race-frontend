@@ -1,5 +1,13 @@
 <script setup>
-const props = defineProps(["open", "preferences", "selectedPreferences"]);
+const props = defineProps(["open", "preferences", "selectedCount"]);
+
+const selected = ref([]);
+const emit = defineEmits(["add"]);
+
+function onAddPreference() {
+    emit("add", selected.value);
+    selected.value = [];
+}
 </script>
 <template>
     <ModalComponent :open="open" @close="$emit('close')">
@@ -26,8 +34,14 @@ const props = defineProps(["open", "preferences", "selectedPreferences"]);
                         </div>
                         <div class="ml-3 flex h-6 items-center">
                             <input
+                                v-model="selected"
                                 :id="pref.name"
                                 :name="pref.name"
+                                :value="pref.name"
+                                :disabled="
+                                    selected.length + selectedCount >= 4 &&
+                                    !selected.includes(pref.name)
+                                "
                                 type="checkbox"
                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                             />
@@ -39,8 +53,9 @@ const props = defineProps(["open", "preferences", "selectedPreferences"]);
         <template #action>
             <button
                 type="button"
-                class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                @click="$emit('close')"
+                :disabled="selected.length === 0"
+                class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-400"
+                @click="onAddPreference"
             >
                 Add
             </button>

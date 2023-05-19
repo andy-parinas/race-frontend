@@ -12,7 +12,7 @@ const props = defineProps(["selectedPreferences"]);
             >
                 <li
                     v-for="pref in selectedPreferences"
-                    :key="pref.id"
+                    :key="pref.name"
                     class="relative flex justify-between gap-x-6 px-4 py-4 hover:bg-gray-50 sm:px-6"
                 >
                     <div class="flex gap-x-4">
@@ -24,7 +24,10 @@ const props = defineProps(["selectedPreferences"]);
                             </p>
                         </div>
                     </div>
-                    <button class="flex items-center gap-x-4">
+                    <button
+                        @click="$emit('remove', pref.name)"
+                        class="flex items-center gap-x-4"
+                    >
                         <MinusSmallIcon
                             class="h-5 w-5 flex-none text-red-400 hover:text-red-800"
                             aria-hidden="true"
@@ -33,7 +36,10 @@ const props = defineProps(["selectedPreferences"]);
                 </li>
             </ul>
         </div>
-        <div v-else class="text-xs lg:text-sm text-center text-gray-500">
+        <div
+            v-else
+            class="text-xs lg:text-sm text-center text-gray-400 px-2 py-7 bg-gray-100"
+        >
             Please Select Preferences
         </div>
     </div>

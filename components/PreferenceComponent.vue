@@ -1,36 +1,23 @@
 <script setup>
 import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/20/solid";
+import { usePreferenceStore } from "~/stores/preferences";
 
-const preferences = ref([
-    // { name: "track", title: "Track" },
-    // { name: "distance", title: "Distance" },
-    { name: "track_distance", title: "Trk/Dist" },
-    // { name: "current_jockey", title: "Horse/Jockey" },
-    { name: "good", title: "Good" },
-    { name: "heavy", title: "Heavy" },
-    { name: "soft", title: "Soft" },
-    { name: "synthetic", title: "Synthetic" },
-    // { name: "first_up", title: "First Up" },
-    { name: "second_up", title: "Second Up" },
-]);
-
-const selectedPreferences = ref([
-    { name: "track", title: "Track" },
-    { name: "distance", title: "Distance" },
-    { name: "current_jockey", title: "Horse/Jockey" },
-    { name: "first_up", title: "First Up" },
-]);
+const preferenceStore = usePreferenceStore();
 
 const openModal = ref(false);
 
 function resetSelectedPreferences() {
-    selectedPreferences.value = [];
+    // selectedPreferences.value = [];
+    preferenceStore.clearSelectedPreferences();
 }
 
-function addPreference() {
-    if (selectedPreferences.value.length < 3) {
-        openModal.value = true;
-    }
+function addPreference(selected) {
+    preferenceStore.addPreference(selected);
+    openModal.value = false;
+}
+
+function removePreference(prefName) {
+    preferenceStore.removePreference(prefName);
 }
 </script>
 <template>
@@ -43,10 +30,12 @@ function addPreference() {
             <h2 class="text-base font-semibold leading-7">Preferences</h2>
             <div class="flex items-center gap-x-1">
                 <button
-                    v-if="selectedPreferences.length < 3"
-                    @click="addPreference"
+                    :disabled="
+                        preferenceStore.getSelectedPreferences.length === 4
+                    "
+                    @click="openModal = true"
                     type="button"
-                    class="inline-flex items-center gap-x-1.5 rounded-md text-blue-600 px-2.5 py-1.5 text-sm font-semibold hover:text-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                    class="inline-flex items-center gap-x-1.5 rounded-md text-blue-600 px-2.5 py-1.5 text-sm font-semibold hover:text-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:text-gray-400 disabled:cursor-not-allowed"
                 >
                     <PlusIcon class="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -59,11 +48,15 @@ function addPreference() {
                 </button>
             </div>
         </header>
-        <PreferenceList :selected-preferences="selectedPreferences" />
+        <PreferenceList
+            @remove="removePreference"
+            :selected-preferences="preferenceStore.getSelectedPreferences"
+        />
     </aside>
     <AddPReferenceModal
-        :preferences="preferences"
-        :selectedPreferences="selectedPreferences"
+        @add="addPreference"
+        :preferences="preferenceStore.availablePreferences"
+        :selectedCount="preferenceStore.getSelectedCount"
         :open="openModal"
         @close="openModal = false"
     />
