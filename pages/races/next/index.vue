@@ -3,7 +3,9 @@ const {
     data: races,
     pending,
     refresh,
-} = useFetch("https://6460a8a7ca2d89f7e75c3518.mockapi.io/api/v1/races");
+} = useFetch(
+    "http://127.0.0.1:8000/races/?datetime=2023-06-06-08-00&date_filter=gt"
+);
 
 // setInterval(() => {
 //     refresh();
@@ -22,8 +24,8 @@ const {
                 Show More
             </NuxtLink>
         </header>
-        <!-- <pre>{{ races }}</pre> -->
-        <NextRaceList v-if="races" :races="races" />
+        <!-- <pre>{{ races.races }}</pre> -->
+        <NextRaceList v-if="races" :races="races.races" />
         <div v-else>Loading</div>
     </div>
 </template>
