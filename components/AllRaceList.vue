@@ -19,12 +19,17 @@ const props = defineProps(["meetings"]);
                         <p
                             class="text-xs lg:text-sm font-medium text-gray-800 uppercase px-2 py-1"
                         >
-                            {{ meeting.name }}
+                            {{ meeting.track.state }}
+                        </p>
+                        <p
+                            class="text-xs lg:text-sm font-medium text-gray-800 uppercase px-2 py-1"
+                        >
+                            {{ meeting.track.name }}
                         </p>
                         <p
                             class="text-xs text-gray-700 bg-gray-50 rounded ring-gray-600/20 ring-1 ring-inset px-2 py-1"
                         >
-                            Track: {{ meeting.track }}
+                            Track: {{ meeting.track_surface }}
                         </p>
                     </div>
                     <div
@@ -50,14 +55,25 @@ const props = defineProps(["meetings"]);
                             class="h-11 w-11 rounded-full text-center flex justify-center items-center text-gray-800 text-xs ring-gray-600/20 ring-1 ring-inset hover:bg-slate-200 hover:cursor-pointer"
                         >
                             <span class="text-xs">
-                                R{{ race.raceNumber }}
+                                R{{ race.race_number }}
                             </span>
                         </div>
                         <div
                             class="text-xs leading-4 flex flex-col items-center mb-2"
                         >
-                            <div>16:30</div>
-                            <div>1600m</div>
+                            <div>
+                                {{
+                                    new Date(race.date_time).toLocaleTimeString(
+                                        "en-US",
+                                        {
+                                            hour: "numeric",
+                                            minute: "numeric",
+                                            hour12: false,
+                                        }
+                                    )
+                                }}
+                            </div>
+                            <div>{{ race.distance }}m</div>
                         </div>
                     </div>
                 </div>
