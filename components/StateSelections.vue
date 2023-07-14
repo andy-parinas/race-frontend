@@ -1,10 +1,13 @@
 <script setup>
 const states = ["NSW", "NT", "VIC", "QLD", "SA", "TAS", "WA"];
 
+const emit = defineEmits(["onStateChange"]);
+
 const selectedState = ref("");
 
 function setSelectedState(state) {
     selectedState.value = state;
+    emit("onStateChange", state);
 }
 </script>
 <template>

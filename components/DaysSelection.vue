@@ -1,4 +1,5 @@
 <script setup>
+import { DateTime } from "luxon";
 // import { emit } from "vue";
 const days = ref([]);
 
@@ -28,10 +29,12 @@ function generateDays() {
         const fullDayName =
             i === 0 || i === 1 ? dayOfWeek : days[date.getDay()];
 
+        const luxonDate = DateTime.fromJSDate(date);
+
         dates.push({
             day: dayOfWeek,
             fullDayName: fullDayName,
-            date: date.toLocaleDateString(),
+            date: luxonDate.toFormat("yyyy-MM-dd"),
         });
     }
 
@@ -41,7 +44,7 @@ function generateDays() {
 const selectedDay = ref({
     day: "Today",
     fullDayName: "Today",
-    date: new Date().toLocaleDateString(),
+    date: DateTime.fromJSDate(new Date()).toFormat("yyyy-MM-dd"),
 });
 
 onMounted(() => {

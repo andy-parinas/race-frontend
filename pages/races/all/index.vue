@@ -1,330 +1,5 @@
 <script setup>
-// const meetings = [
-//     {
-//         id: 1,
-//         name: "Gold Coast",
-//         state: "QLD",
-//         track: "G",
-//         races: [
-//             {
-//                 id: 1,
-//                 name: "Race 1",
-//                 raceNumber: 1,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 2,
-//                 name: "Race 2",
-//                 raceNumber: 2,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 3",
-//                 raceNumber: 3,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 4",
-//                 raceNumber: 4,
-//                 status: "7:00 PM",
-//             },
-
-//             {
-//                 id: 5,
-//                 name: "Race 5",
-//                 raceNumber: 5,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 6,
-//                 name: "Race 6",
-//                 raceNumber: 6,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 7,
-//                 name: "Race 7",
-//                 raceNumber: 7,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 8,
-//                 name: "Race 8",
-//                 raceNumber: 8,
-//                 status: "7:00 PM",
-//             },
-//             {
-//                 id: 9,
-//                 name: "Race 9",
-//                 raceNumber: 9,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 10,
-//                 name: "Race 10",
-//                 raceNumber: 10,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 11,
-//                 name: "Race 11",
-//                 raceNumber: 11,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 12,
-//                 name: "Race 12",
-//                 raceNumber: 12,
-//                 status: "8:00 PM",
-//             },
-//         ],
-//     },
-//     {
-//         id: 2,
-//         name: "Sunshine Coast",
-//         state: "QLD",
-//         track: "G",
-//         races: [
-//             {
-//                 id: 1,
-//                 name: "Race 1",
-//                 raceNumber: 1,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 2,
-//                 name: "Race 2",
-//                 raceNumber: 2,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 3",
-//                 raceNumber: 3,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 4",
-//                 raceNumber: 4,
-//                 status: "7:00 PM",
-//             },
-
-//             {
-//                 id: 5,
-//                 name: "Race 5",
-//                 raceNumber: 5,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 6,
-//                 name: "Race 6",
-//                 raceNumber: 6,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 7,
-//                 name: "Race 7",
-//                 raceNumber: 7,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 8,
-//                 name: "Race 8",
-//                 raceNumber: 8,
-//                 status: "7:00 PM",
-//             },
-//             {
-//                 id: 9,
-//                 name: "Race 9",
-//                 raceNumber: 9,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 10,
-//                 name: "Race 10",
-//                 raceNumber: 10,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 11,
-//                 name: "Race 11",
-//                 raceNumber: 11,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 12,
-//                 name: "Race 12",
-//                 raceNumber: 12,
-//                 status: "8:00 PM",
-//             },
-//         ],
-//     },
-//     {
-//         id: 3,
-//         name: "Warwick Farm",
-//         state: "NSW",
-//         track: "G",
-//         races: [
-//             {
-//                 id: 1,
-//                 name: "Race 1",
-//                 raceNumber: 1,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 2,
-//                 name: "Race 2",
-//                 raceNumber: 2,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 3",
-//                 raceNumber: 3,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 4",
-//                 raceNumber: 4,
-//                 status: "7:00 PM",
-//             },
-
-//             {
-//                 id: 5,
-//                 name: "Race 5",
-//                 raceNumber: 5,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 6,
-//                 name: "Race 6",
-//                 raceNumber: 6,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 7,
-//                 name: "Race 7",
-//                 raceNumber: 7,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 8,
-//                 name: "Race 8",
-//                 raceNumber: 8,
-//                 status: "7:00 PM",
-//             },
-//             {
-//                 id: 9,
-//                 name: "Race 9",
-//                 raceNumber: 9,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 10,
-//                 name: "Race 10",
-//                 raceNumber: 10,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 11,
-//                 name: "Race 11",
-//                 raceNumber: 11,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 12,
-//                 name: "Race 12",
-//                 raceNumber: 12,
-//                 status: "8:00 PM",
-//             },
-//         ],
-//     },
-//     {
-//         id: 4,
-//         name: "Rosehill Gardens",
-//         state: "NSW",
-//         track: "G",
-//         races: [
-//             {
-//                 id: 1,
-//                 name: "Race 1",
-//                 raceNumber: 1,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 2,
-//                 name: "Race 2",
-//                 raceNumber: 2,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 3",
-//                 raceNumber: 3,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 3,
-//                 name: "Race 4",
-//                 raceNumber: 4,
-//                 status: "7:00 PM",
-//             },
-
-//             {
-//                 id: 5,
-//                 name: "Race 5",
-//                 raceNumber: 5,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 6,
-//                 name: "Race 6",
-//                 raceNumber: 6,
-//                 status: "12:30 PM",
-//             },
-//             {
-//                 id: 7,
-//                 name: "Race 7",
-//                 raceNumber: 7,
-//                 status: "6:30 PM",
-//             },
-//             {
-//                 id: 8,
-//                 name: "Race 8",
-//                 raceNumber: 8,
-//                 status: "7:00 PM",
-//             },
-//             {
-//                 id: 9,
-//                 name: "Race 9",
-//                 raceNumber: 9,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 10,
-//                 name: "Race 10",
-//                 raceNumber: 10,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 11,
-//                 name: "Race 11",
-//                 raceNumber: 11,
-//                 status: "8:00 PM",
-//             },
-//             {
-//                 id: 12,
-//                 name: "Race 12",
-//                 raceNumber: 12,
-//                 status: "8:00 PM",
-//             },
-//         ],
-//     },
-// ];
+import { getCurrentDate, getNextDate } from "../../../utils/dateformat";
 
 const selectedDate = ref(null);
 // const selectedDate = ref(new Date().toLocaleDateString());
@@ -342,20 +17,28 @@ function dateChanged(date) {
     // refresh();
 }
 
+function stateChanged(state) {
+    selectedState.value = state;
+}
+
 watch(
     [selectedDate, selectedState],
     async ([newDate, newState], [oldDate, oldState]) => {
-        if (selectedDate.value || selectedState.value) {
-            const response = await $fetch(
-                `http://127.0.0.1:8000/meetings/?date=2023-06-06&`
-            );
+        if (selectedDate.value) {
+            let url = `http://127.0.0.1:8000/meetings/?date=${selectedDate.value}`;
+
+            if (selectedState.value) {
+                url = url + `&state=${selectedState.value}`;
+            }
+
+            const response = await $fetch(url);
             meetings.value = response.meetings;
         }
     }
 );
 
 onMounted(() => {
-    selectedDate.value = new Date().toLocaleDateString();
+    selectedDate.value = getCurrentDate();
 });
 </script>
 <template>
@@ -366,7 +49,7 @@ onMounted(() => {
             <h1 className="text-base font-semibold leading-7">All Races</h1>
         </header>
         <DaysSelection @on-day-change="(date) => dateChanged(date)" />
-        <StateSelections />
+        <StateSelections @on-state-change="(state) => stateChanged(state)" />
         <div v-if="meetings.length > 0">
             <AllRaceList :meetings="meetings" />
         </div>
