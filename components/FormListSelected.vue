@@ -7,16 +7,18 @@ const props = defineProps(["selectedForms"]);
     >
         <div
             v-for="form in selectedForms"
-            :key="form.name"
+            :key="form.stat"
             class="flex-1 text-center flex flex-col gap-y-1"
         >
             <div class="font-medium text-gray-500 text-xs leading-5">
-                {{ form.title }}
+                {{ form.stat }}
             </div>
             <div
                 class="bg-orange-100 text-orange-700 ring-orange-600/20 ring-1 ring-inset rounded"
             >
-                {{ form.value }}
+                {{ form.total }} {{ form.first }}-{{ form.second }}-{{
+                    form.third
+                }}
             </div>
             <div>{{ form.secondary }}</div>
         </div>

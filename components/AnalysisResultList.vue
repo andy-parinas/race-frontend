@@ -1,5 +1,6 @@
 <script setup>
 import { ChevronDoubleRightIcon } from "@heroicons/vue/24/outline";
+import { usePreferenceStore } from "~/stores/preferences";
 
 const props = defineProps(["result"]);
 
@@ -21,32 +22,38 @@ const forms = [
     { name: "second_up", title: "Second Up", value: "5 0-1-1" },
 ];
 
-const selectedForms = [
-    {
-        name: "first_up",
-        title: "First Up",
-        value: "5 0-1-1",
-        secondary: "42x11x223x",
-    },
-    {
-        name: "distance_track",
-        title: "Trk/Dist",
-        value: "5 0-1-1",
-        secondary: "EAF - 1200m",
-    },
-    {
-        name: "current_jockey",
-        title: "Horse/Jock",
-        value: "5 0-1-1",
-        secondary: "Andy Parinas",
-    },
-    {
-        name: "synthetic",
-        title: "Synthetic",
-        value: "5 0-1-1",
-        secondary: "Synthetic",
-    },
-];
+const prefStore = usePreferenceStore();
+
+const selectedForms = props.result.details.horse.stats.filter((stat) =>
+    prefStore.selectedPreference.includes(stat.stat)
+);
+
+// const selectedForms = [
+//     {
+//         name: "first_up",
+//         title: "First Up",
+//         value: "5 0-1-1",
+//         secondary: "42x11x223x",
+//     },
+//     {
+//         name: "distance_track",
+//         title: "Trk/Dist",
+//         value: "5 0-1-1",
+//         secondary: "EAF - 1200m",
+//     },
+//     {
+//         name: "current_jockey",
+//         title: "Horse/Jock",
+//         value: "5 0-1-1",
+//         secondary: "Andy Parinas",
+//     },
+//     {
+//         name: "synthetic",
+//         title: "Synthetic",
+//         value: "5 0-1-1",
+//         secondary: "Synthetic",
+//     },
+// ];
 </script>
 <template>
     <div class="flex flex-col flex-1">
@@ -54,29 +61,34 @@ const selectedForms = [
             <div
                 class="text-xs lg:text-sm leading-6 text-gray-900 w-48 lg:w-1/3"
             >
-                {{ result.horseName }}
+                {{ result.details.horse.horse_name }}
             </div>
 
             <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                 <div
                     class="bg-blue-600 text-blue-100 text-xs font-medium text-center p-0.5 leading-none rounded-full"
-                    :style="{ width: result.rating + '%' }"
+                    :style="{ width: result.rating * 100 + '%' }"
                 >
-                    {{ result.rating }}
+                    {{ Math.floor(result.rating * 100) }}
                 </div>
             </div>
         </div>
         <div
             class="mt-1.5 flex items-center gap-x-2 text-xs leading-5 text-gray-500"
         >
-            <p class="whitespace-nowrap">{{ result.meeting }}</p>
-            <p class="truncate">{{ result.race }}</p>
+            <p class="whitespace-nowrap">
+                {{ result.details.race.meeting.track.name }}
+            </p>
+            <p class="truncate">R{{ result.details.race.race_number }}</p>
         </div>
         <!-- Selected Form Here -->
         <FormListSelected :selectedForms="selectedForms" />
         <div class="mt-2 flex items-center justify-between">
             <div>
-                <!-- <img class="w-12 lg:w-16" src="{colours}" /> -->
+                <img
+                    class="w-12 lg:w-16"
+                    :src="result.details.horse_race_info.colours_pic"
+                />
             </div>
             <BrokerList />
         </div>
@@ -92,7 +104,7 @@ const selectedForms = [
             </button>
         </div>
         <div v-if="showAllForms" class="mt-2">
-            <FormList :forms="forms" />
+            <FormList :forms="result.details.horse.stats" />
         </div>
     </div>
 </template>
