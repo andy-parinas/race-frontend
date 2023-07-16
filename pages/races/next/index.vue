@@ -25,12 +25,14 @@ function getEndDateTime() {
 const currentDateTime = ref(getCurrentDateTime());
 const endDateTime = ref(getEndDateTime());
 
+const config = useRuntimeConfig();
+
 const {
     data: races,
     pending,
     refresh,
 } = useFetch(
-    `http://127.0.0.1:8000/races/?datetime=${currentDateTime.value}&datetime_end=${endDateTime.value}&date_filter=bet`
+    `${config.public.apiBase}/races/?datetime=${currentDateTime.value}&datetime_end=${endDateTime.value}&date_filter=bet`
 );
 
 // setInterval(() => {

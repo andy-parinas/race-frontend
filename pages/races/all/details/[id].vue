@@ -1,8 +1,11 @@
 <script setup>
+import { ChevronLeftIcon } from "@heroicons/vue/24/outline";
 const route = useRoute();
 
+const config = useRuntimeConfig();
+
 const { data: meeting } = await useFetch(
-    `http://127.0.0.1:8000/meetings/${route.params.id}`
+    `${config.public.apiBase}/meetings/${route.params.id}`
 );
 
 const selectedRaceId = ref(null);
@@ -10,7 +13,9 @@ const selectedRace = ref(null);
 
 watch(selectedRaceId, async (newId, oldId) => {
     if (newId) {
-        const response = await $fetch(`http://localhost:8000/races/${newId}`);
+        const response = await $fetch(
+            `${config.public.apiBase}/races/${newId}`
+        );
         selectedRace.value = response;
         console.log(selectedRace.value);
     }
@@ -36,8 +41,11 @@ const timeOptions = ref({
 <template>
     <div>
         <header
-            class="flex items-center justify-between border-b border-white/5 px-4 pb-2 lg:pb-2 sm:px-6 sm:py-6 lg:px-8 pr"
+            class="flex items-center justify-between border-b border-white/5 px-1 pb-2 lg:pb-2 sm:px-6 sm:py-6 lg:px-2 pr"
         >
+            <NuxtLink class="text-sm text-blue-600 mr-2" to="/races/all">
+                <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
+            </NuxtLink>
             <div class="flex-1 flex justify-between items-center">
                 <h1 class="text-base font-semibold leading-7">
                     {{ meeting.track.state }} {{ meeting.track.name }}

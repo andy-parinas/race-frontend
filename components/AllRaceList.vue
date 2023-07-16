@@ -1,7 +1,18 @@
 <script setup>
 import { ChevronDoubleRightIcon } from "@heroicons/vue/20/solid";
+import { useRaceStore } from "~/stores/races";
 
 const props = defineProps(["meetings"]);
+
+const raceStore = useRaceStore();
+
+function clickRace(id) {
+    if (raceStore.selectedRaceIds.includes(id)) {
+        raceStore.removeRaceId(id);
+    } else {
+        raceStore.addRaceId(id);
+    }
+}
 </script>
 <template>
     <ul
@@ -52,7 +63,13 @@ const props = defineProps(["meetings"]);
                         class="flex flex-col justify-center items-center gap-y-2"
                     >
                         <div
+                            @click="clickRace(race.id)"
                             class="h-11 w-11 rounded-full text-center flex justify-center items-center text-gray-800 text-xs ring-gray-600/20 ring-1 ring-inset hover:bg-slate-200 hover:cursor-pointer"
+                            :class="[
+                                raceStore.selectedRaceIds.includes(race.id)
+                                    ? 'bg-blue-100'
+                                    : '',
+                            ]"
                         >
                             <span class="text-xs">
                                 R{{ race.race_number }}

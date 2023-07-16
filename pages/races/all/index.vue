@@ -8,6 +8,7 @@ const selectedState = ref(null);
 const races = ref([]);
 const meetings = ref([]);
 
+const config = useRuntimeConfig();
 // const { data: races, refresh } = await useFetch(
 //     `https://6460a8a7ca2d89f7e75c3518.mockapi.io/api/v1/races?date=${selectedDate.value}`
 // );
@@ -21,11 +22,17 @@ function stateChanged(state) {
     selectedState.value = state;
 }
 
+const router = useRouter();
+
+function showResults() {
+    router.push({ path: "/races/all/results" });
+}
+
 watch(
     [selectedDate, selectedState],
     async ([newDate, newState], [oldDate, oldState]) => {
         if (selectedDate.value) {
-            let url = `http://127.0.0.1:8000/meetings/?date=${selectedDate.value}`;
+            let url = `${config.public.apiBase}/meetings/?date=${selectedDate.value}`;
 
             if (selectedState.value) {
                 url = url + `&state=${selectedState.value}`;
@@ -56,6 +63,12 @@ onMounted(() => {
         <div v-else>
             No Races found for the selected date and state. Please try again.
         </div>
-        <!-- <pre>{{ meetings }}</pre> -->
+        <button
+            @click="showResults"
+            class="fixed z-50 bottom-20 right-4 bg-red-600 text-sm lg:text-base flex justify-center items-center text-white hover:bg-red-700 drop-shadow-xl hover:drop-shadow-2xl hover:animate-pulse duration-100 px-4 py-2 rounded-3xl"
+        >
+            <!-- <CheckIcon className="h-5 w-5" aria-hidden="true" /> -->
+            Show Results
+        </button>
     </div>
 </template>
