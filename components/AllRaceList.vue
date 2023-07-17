@@ -13,6 +13,18 @@ function clickRace(id) {
         raceStore.addRaceId(id);
     }
 }
+
+function selectAll(meeting) {
+    const races = meeting.races;
+
+    races.forEach((race) => {
+        if (!raceStore.selectedRaceIds.includes(race.id)) {
+            raceStore.addRaceId(race.id);
+        } else {
+            raceStore.removeRaceId(race.id);
+        }
+    });
+}
 </script>
 <template>
     <ul
@@ -47,10 +59,17 @@ function clickRace(id) {
                         class="flex items-center gap-x-3 leading-5 text-gray-500"
                     >
                         <button
+                            @click="selectAll(meeting)"
                             type="button"
                             class="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-500 shadow-sm ring-1 ring-inset ring-blue-300 hover:bg-blue-100 uppercase leading-3"
                         >
-                            Select All
+                            {{
+                                meeting.races.every((race) =>
+                                    raceStore.selectedRaceIds.includes(race.id)
+                                )
+                                    ? "Unselect All"
+                                    : "Select All"
+                            }}
                         </button>
                     </div>
                 </div>

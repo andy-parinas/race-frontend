@@ -41,7 +41,6 @@ const {
 </script>
 <template>
     <div>
-        <pre>{{ currentDateTime }} {{ endDateTime }}</pre>
         <header
             class="flex items-center justify-between border-b border-white/5 px-4 pb-2 lg:pb-2 sm:px-6 sm:py-6 lg:px-8 pr"
         >

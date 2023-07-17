@@ -1,5 +1,7 @@
 <script setup>
+import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/20/solid";
 import { getCurrentDate, getNextDate } from "../../../utils/dateformat";
+import { useRaceStore } from "~/stores/races";
 
 const selectedDate = ref(null);
 // const selectedDate = ref(new Date().toLocaleDateString());
@@ -28,6 +30,12 @@ function showResults() {
     router.push({ path: "/races/all/results" });
 }
 
+const raceStore = useRaceStore();
+
+function resetRaceSelection() {
+    raceStore.clearAll();
+}
+
 watch(
     [selectedDate, selectedState],
     async ([newDate, newState], [oldDate, oldState]) => {
@@ -51,9 +59,16 @@ onMounted(() => {
 <template>
     <div>
         <header
-            className="flex items-center justify-between border-b border-white/5 px-4 pb-2 lg:pb-2 sm:px-6 sm:py-6 lg:px-8 pr"
+            class="flex items-center justify-between border-b border-white/5 px-4 pb-2 lg:pb-2 sm:px-6 sm:py-6 lg:px-8 pr"
         >
-            <h1 className="text-base font-semibold leading-7">All Races</h1>
+            <h1 class="text-base font-semibold leading-7">All Races</h1>
+            <button
+                @click="resetRaceSelection"
+                type="button"
+                class="inline-flex items-center gap-x-1.5 rounded-md px-2.5 py-1.5 text-sm font-semibold text-green-600 hover:text-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+            >
+                <ArrowPathIcon class="h-5 w-5" aria-hidden="true" />
+            </button>
         </header>
         <DaysSelection @on-day-change="(date) => dateChanged(date)" />
         <StateSelections @on-state-change="(state) => stateChanged(state)" />
