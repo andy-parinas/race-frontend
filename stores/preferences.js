@@ -5,7 +5,7 @@ export const usePreferenceStore = defineStore("preferences", {
         preferences: [
             { name: "track", title: "Track" },
             { name: "distance", title: "Distance" },
-            { name: "track_distance", title: "Trk/Dist" },
+            { name: "distance_track", title: "Trk/Dist" },
             { name: "current_jockey", title: "Horse/Jockey" },
             { name: "good", title: "Good" },
             { name: "heavy", title: "Heavy" },
@@ -15,7 +15,7 @@ export const usePreferenceStore = defineStore("preferences", {
             { name: "second_up", title: "Second Up" },
         ],
         availablePreferences: [
-            { name: "track_distance", title: "Trk/Dist" },
+            { name: "distance_track", title: "Trk/Dist" },
             { name: "good", title: "Good" },
             { name: "heavy", title: "Heavy" },
             { name: "soft", title: "Soft" },
