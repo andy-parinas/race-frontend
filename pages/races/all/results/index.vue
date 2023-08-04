@@ -1,4 +1,5 @@
 <script setup>
+import { storeToRefs } from "pinia";
 import { ChevronLeftIcon } from "@heroicons/vue/24/outline";
 import { usePreferenceStore } from "~/stores/preferences";
 import { useRaceStore } from "~/stores/races";
@@ -14,7 +15,7 @@ async function getAnalysis() {
     const data = {
         race_ids: raceStore.selectedRaceIds,
         preferences: prefStore.selectedPreference,
-        preference_type: "balance",
+        preference_type: "weighted",
     };
 
     const response = await $fetch(`${config.public.apiBase}/analysis/`, {
@@ -22,7 +23,6 @@ async function getAnalysis() {
         body: data,
     });
 
-    console.log(response);
     results.value = response;
 }
 
@@ -30,6 +30,13 @@ onMounted(async () => {
     if (raceStore.selectedRaceIds.length > 0) {
         await getAnalysis();
     }
+});
+
+const { preferenceTrigger } = storeToRefs(prefStore);
+
+watch(preferenceTrigger, async (newValue, oldValue) => {
+    console.log("Change Analysis");
+    await getAnalysis();
 });
 </script>
 <template>

@@ -24,39 +24,21 @@ const forms = [
 
 const prefStore = usePreferenceStore();
 
-const selectedForms = props.result.details.horse.stats.filter((stat) =>
-    prefStore.selectedPreference.includes(stat.stat)
-);
+const selectedForms = computed(() => {
+    return props.result.details.horse.stats.filter((stat) =>
+        prefStore.selectedPreference.includes(stat.stat)
+    );
+});
 
-// const selectedForms = [
-//     {
-//         name: "first_up",
-//         title: "First Up",
-//         value: "5 0-1-1",
-//         secondary: "42x11x223x",
-//     },
-//     {
-//         name: "distance_track",
-//         title: "Trk/Dist",
-//         value: "5 0-1-1",
-//         secondary: "EAF - 1200m",
-//     },
-//     {
-//         name: "current_jockey",
-//         title: "Horse/Jock",
-//         value: "5 0-1-1",
-//         secondary: "Andy Parinas",
-//     },
-//     {
-//         name: "synthetic",
-//         title: "Synthetic",
-//         value: "5 0-1-1",
-//         secondary: "Synthetic",
-//     },
-// ];
+// const selectedForms = ref(
+//     props.result.details.horse.stats.filter((stat) =>
+//         prefStore.selectedPreference.includes(stat.stat)
+//     )
+// );
 </script>
 <template>
     <div class="flex flex-col flex-1">
+        <!-- <pre>{{ selectedForms }}</pre> -->
         <div class="flex items-center gap-x-3">
             <div
                 class="text-xs lg:text-sm leading-6 text-gray-900 w-48 lg:w-1/3"

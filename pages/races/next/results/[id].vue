@@ -1,4 +1,5 @@
 <script setup>
+import { storeToRefs } from "pinia";
 import { ChevronLeftIcon } from "@heroicons/vue/24/outline";
 import { usePreferenceStore } from "~/stores/preferences";
 
@@ -14,7 +15,7 @@ async function getAnalysis() {
     const data = {
         race_ids: [route.params.id],
         preferences: prefStore.selectedPreference,
-        preference_type: "balance",
+        preference_type: "weighted",
     };
 
     const response = await $fetch(`${config.public.apiBase}/analysis/`, {
@@ -27,7 +28,13 @@ async function getAnalysis() {
 }
 
 onMounted(async () => {
-    console.log("mounted");
+    await getAnalysis();
+});
+
+const { preferenceTrigger } = storeToRefs(prefStore);
+
+watch(preferenceTrigger, async (newValue, oldValue) => {
+    console.log("Change Analysis");
     await getAnalysis();
 });
 </script>
@@ -42,7 +49,7 @@ onMounted(async () => {
             </NuxtLink>
             <h1 class="text-base font-semibold leading-7">Analysis Results</h1>
         </header>
-
+        <!-- <pre>{{ results }}</pre> -->
         <AnalysisResults :results="results" />
     </div>
 </template>

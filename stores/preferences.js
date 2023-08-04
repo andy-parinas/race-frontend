@@ -2,18 +2,6 @@ import { defineStore } from "pinia";
 
 export const usePreferenceStore = defineStore("preferences", {
     state: () => ({
-        // preferences: [
-        //     { name: "track", title: "Track" },
-        //     { name: "distance", title: "Distance" },
-        //     { name: "distance_track", title: "Trk/Dist" },
-        //     { name: "current_jockey", title: "Horse/Jockey" },
-        //     { name: "good", title: "Good" },
-        //     { name: "heavy", title: "Heavy" },
-        //     { name: "soft", title: "Soft" },
-        //     { name: "synthetic", title: "Synthetic" },
-        //     { name: "first_up", title: "First Up" },
-        //     { name: "second_up", title: "Second Up" },
-        // ],
         preferences: [
             "track",
             "distance",
@@ -26,14 +14,6 @@ export const usePreferenceStore = defineStore("preferences", {
             "first_up",
             "second_up",
         ],
-        // availablePreferences: [
-        //     { name: "distance_track", title: "Trk/Dist" },
-        //     { name: "good", title: "Good" },
-        //     { name: "heavy", title: "Heavy" },
-        //     { name: "soft", title: "Soft" },
-        //     { name: "synthetic", title: "Synthetic" },
-        //     { name: "second_up", title: "Second Up" },
-        // ],
         availablePreferences: [
             "distance_track",
             "good",
@@ -44,6 +24,7 @@ export const usePreferenceStore = defineStore("preferences", {
             "first_up",
         ],
         selectedPreference: ["track", "distance", "current_jockey"],
+        preferenceTrigger: Math.floor(Date.now() / 1000),
     }),
     getters: {
         // getSelectedPreferences() {
@@ -81,6 +62,8 @@ export const usePreferenceStore = defineStore("preferences", {
             this.availablePreferences = this.availablePreferences.filter(
                 (pref) => !prefNames.includes(pref)
             );
+
+            this.preferenceTrigger = Math.floor(Date.now() / 1000);
         },
         removePreference(prefName) {
             const index = this.selectedPreference.indexOf(prefName);
@@ -93,6 +76,8 @@ export const usePreferenceStore = defineStore("preferences", {
                     this.availablePreferences.push(preference);
                 }
             }
+
+            this.preferenceTrigger = Math.floor(Date.now() / 1000);
         },
         clearSelectedPreferences() {
             const preference = this.getSelectedPreferences;
@@ -101,6 +86,10 @@ export const usePreferenceStore = defineStore("preferences", {
                 ...preference,
             ];
             this.selectedPreference = [];
+        },
+
+        triggerPreferenceChange() {
+            this.preferenceTrigger = Math.floor(Date.now() / 1000);
         },
     },
 });

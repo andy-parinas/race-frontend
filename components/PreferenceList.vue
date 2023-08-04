@@ -26,6 +26,7 @@ function formatCurrentJockey(str) {
 }
 
 function itemDrop() {
+    preferenceStore.triggerPreferenceChange();
     console.log(preferenceStore.selectedPreference);
 }
 </script>
