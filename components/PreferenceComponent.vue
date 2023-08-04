@@ -30,9 +30,7 @@ function removePreference(prefName) {
             <h2 class="text-base font-semibold leading-7">Preferences</h2>
             <div class="flex items-center gap-x-1">
                 <button
-                    :disabled="
-                        preferenceStore.getSelectedPreferences.length === 4
-                    "
+                    :disabled="preferenceStore.selectedPreference.length === 4"
                     @click="openModal = true"
                     type="button"
                     class="inline-flex items-center gap-x-1.5 rounded-md text-blue-600 px-2.5 py-1.5 text-sm font-semibold hover:text-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:text-gray-400 disabled:cursor-not-allowed"
@@ -50,10 +48,10 @@ function removePreference(prefName) {
         </header>
         <PreferenceList
             @remove="removePreference"
-            :selected-preferences="preferenceStore.getSelectedPreferences"
+            :selected-preferences="preferenceStore.selectedPreference"
         />
     </aside>
-    <AddPReferenceModal
+    <AddPreferenceModal
         @add="addPreference"
         :preferences="preferenceStore.availablePreferences"
         :selectedCount="preferenceStore.getSelectedCount"

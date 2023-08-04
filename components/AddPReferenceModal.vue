@@ -1,4 +1,5 @@
 <script setup>
+import { snakeCaseToTitleCase } from "~/utils/wordformat";
 const props = defineProps(["open", "preferences", "selectedCount"]);
 
 const selected = ref([]);
@@ -22,25 +23,25 @@ function onAddPreference() {
                     <!-- {{ preferences }} -->
                     <div
                         v-for="pref in preferences"
-                        :key="pref.name"
+                        :key="pref"
                         class="relative flex items-start py-4"
                     >
                         <div class="min-w-0 flex-1 text-sm leading-6">
                             <label
-                                :for="pref.name"
+                                :for="pref"
                                 class="select-none font-medium text-gray-900"
-                                >{{ pref.title }}</label
+                                >{{ snakeCaseToTitleCase(pref) }}</label
                             >
                         </div>
                         <div class="ml-3 flex h-6 items-center">
                             <input
                                 v-model="selected"
-                                :id="pref.name"
-                                :name="pref.name"
-                                :value="pref.name"
+                                :id="pref"
+                                :name="pref"
+                                :value="pref"
                                 :disabled="
                                     selected.length + selectedCount >= 4 &&
-                                    !selected.includes(pref.name)
+                                    !selected.includes(pref)
                                 "
                                 type="checkbox"
                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"

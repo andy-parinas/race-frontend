@@ -1,5 +1,6 @@
 <script setup>
 import draggable from "vuedraggable";
+import { snakeCaseToTitleCase } from "~/utils/wordformat";
 import { MinusSmallIcon } from "@heroicons/vue/20/solid";
 import { usePreferenceStore } from "~/stores/preferences";
 
@@ -51,7 +52,7 @@ function itemDrop() {
                                     <p
                                         class="text-xs lg:text-sm leading-6 text-gray-900"
                                     >
-                                        {{ preference }}
+                                        {{ snakeCaseToTitleCase(preference) }}
                                     </p>
                                 </div>
                             </div>

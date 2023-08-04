@@ -2,35 +2,56 @@ import { defineStore } from "pinia";
 
 export const usePreferenceStore = defineStore("preferences", {
     state: () => ({
+        // preferences: [
+        //     { name: "track", title: "Track" },
+        //     { name: "distance", title: "Distance" },
+        //     { name: "distance_track", title: "Trk/Dist" },
+        //     { name: "current_jockey", title: "Horse/Jockey" },
+        //     { name: "good", title: "Good" },
+        //     { name: "heavy", title: "Heavy" },
+        //     { name: "soft", title: "Soft" },
+        //     { name: "synthetic", title: "Synthetic" },
+        //     { name: "first_up", title: "First Up" },
+        //     { name: "second_up", title: "Second Up" },
+        // ],
         preferences: [
-            { name: "track", title: "Track" },
-            { name: "distance", title: "Distance" },
-            { name: "distance_track", title: "Trk/Dist" },
-            { name: "current_jockey", title: "Horse/Jockey" },
-            { name: "good", title: "Good" },
-            { name: "heavy", title: "Heavy" },
-            { name: "soft", title: "Soft" },
-            { name: "synthetic", title: "Synthetic" },
-            { name: "first_up", title: "First Up" },
-            { name: "second_up", title: "Second Up" },
+            "track",
+            "distance",
+            "distance_track",
+            "current_jockey",
+            "good",
+            "heavy",
+            "soft",
+            "synthetic",
+            "first_up",
+            "second_up",
         ],
+        // availablePreferences: [
+        //     { name: "distance_track", title: "Trk/Dist" },
+        //     { name: "good", title: "Good" },
+        //     { name: "heavy", title: "Heavy" },
+        //     { name: "soft", title: "Soft" },
+        //     { name: "synthetic", title: "Synthetic" },
+        //     { name: "second_up", title: "Second Up" },
+        // ],
         availablePreferences: [
-            { name: "distance_track", title: "Trk/Dist" },
-            { name: "good", title: "Good" },
-            { name: "heavy", title: "Heavy" },
-            { name: "soft", title: "Soft" },
-            { name: "synthetic", title: "Synthetic" },
-            { name: "second_up", title: "Second Up" },
+            "distance_track",
+            "good",
+            "heavy",
+            "soft",
+            "synthetic",
+            "second_up",
+            "first_up",
         ],
-        selectedPreference: ["track", "distance", "current_jockey", "first_up"],
+        selectedPreference: ["track", "distance", "current_jockey"],
     }),
     getters: {
-        getSelectedPreferences() {
-            const matchingPreferences = this.preferences.filter((preference) =>
-                this.selectedPreference.includes(preference.name)
-            );
-            return matchingPreferences;
-        },
+        // getSelectedPreferences() {
+        //     const matchingPreferences = this.preferences.filter((preference) =>
+        //         this.selectedPreference.includes(preference)
+        //     );
+        //     return matchingPreferences;
+        // },
         getSelectedCount() {
             return this.selectedPreference.length;
         },
@@ -50,15 +71,15 @@ export const usePreferenceStore = defineStore("preferences", {
         },
         addPreference(prefNames) {
             const matchingPreferences = this.preferences.filter((preference) =>
-                prefNames.includes(preference.name)
+                prefNames.includes(preference)
             );
 
             this.selectedPreference = [
                 ...this.selectedPreference,
-                ...prefNames,
+                ...matchingPreferences,
             ];
             this.availablePreferences = this.availablePreferences.filter(
-                (pref) => !prefNames.includes(pref.name)
+                (pref) => !prefNames.includes(pref)
             );
         },
         removePreference(prefName) {
@@ -66,7 +87,7 @@ export const usePreferenceStore = defineStore("preferences", {
             if (index > -1) {
                 this.selectedPreference.splice(index, 1);
                 const preference = this.preferences.find(
-                    (pref) => pref.name === prefName
+                    (pref) => pref === prefName
                 );
                 if (preference) {
                     this.availablePreferences.push(preference);
