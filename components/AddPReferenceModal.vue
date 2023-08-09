@@ -9,6 +9,10 @@ function onAddPreference() {
     emit("add", selected.value);
     selected.value = [];
 }
+
+onMounted(() => {
+    console.log("Modal Mounted");
+});
 </script>
 <template>
     <ModalComponent :open="open" @close="$emit('close')">
