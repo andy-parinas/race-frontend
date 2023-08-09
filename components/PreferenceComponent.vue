@@ -2,7 +2,7 @@
 import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/20/solid";
 // import { ModalComponent } from "~/components";
 import { usePreferenceStore } from "~/stores/preferences";
-import AddPreferenceModal from "./AddPreferenceModal.vue";
+import AddPreferenceModal from "~/components/AddPreferenceModal.vue";
 
 const preferenceStore = usePreferenceStore();
 
