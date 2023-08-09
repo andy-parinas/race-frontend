@@ -15,7 +15,7 @@ async function getAnalysis() {
     const data = {
         race_ids: [route.params.id],
         preferences: prefStore.selectedPreference,
-        preference_type: "weighted",
+        preference_type: "balance",
     };
 
     const response = await $fetch(`${config.public.apiBase}/analysis/`, {
@@ -34,8 +34,11 @@ onMounted(async () => {
 const { preferenceTrigger } = storeToRefs(prefStore);
 
 watch(preferenceTrigger, async (newValue, oldValue) => {
-    console.log("Change Analysis");
-    await getAnalysis();
+    if (prefStore.selectedPreference.length === 0) {
+        results.value = [];
+    } else {
+        await getAnalysis();
+    }
 });
 </script>
 

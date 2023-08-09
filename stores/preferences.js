@@ -80,12 +80,13 @@ export const usePreferenceStore = defineStore("preferences", {
             this.preferenceTrigger = Math.floor(Date.now() / 1000);
         },
         clearSelectedPreferences() {
-            const preference = this.getSelectedPreferences;
+            const preference = this.selectedPreference;
             this.availablePreferences = [
                 ...this.availablePreferences,
                 ...preference,
             ];
             this.selectedPreference = [];
+            this.preferenceTrigger = Math.floor(Date.now() / 1000);
         },
 
         triggerPreferenceChange() {

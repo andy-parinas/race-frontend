@@ -15,7 +15,7 @@ async function getAnalysis() {
     const data = {
         race_ids: raceStore.selectedRaceIds,
         preferences: prefStore.selectedPreference,
-        preference_type: "weighted",
+        preference_type: "balance",
     };
 
     const response = await $fetch(`${config.public.apiBase}/analysis/`, {
@@ -35,8 +35,11 @@ onMounted(async () => {
 const { preferenceTrigger } = storeToRefs(prefStore);
 
 watch(preferenceTrigger, async (newValue, oldValue) => {
-    console.log("Change Analysis");
-    await getAnalysis();
+    if (prefStore.selectedPreference.length === 0) {
+        results.value = [];
+    } else {
+        await getAnalysis();
+    }
 });
 </script>
 <template>
@@ -49,7 +52,6 @@ watch(preferenceTrigger, async (newValue, oldValue) => {
             </NuxtLink>
             <h1 class="text-base font-semibold leading-7">Analysis Results</h1>
         </header>
-
         <AnalysisResults :results="results" />
     </div>
 </template>

@@ -6,22 +6,6 @@ const props = defineProps(["result"]);
 
 const showAllForms = ref(false);
 
-const forms = [
-    { name: "career", title: "Career", value: "5 0-1-1" },
-    { name: "track", title: "Track", value: "5 0-1-1" },
-    { name: "distance", title: "Distance", value: "5 0-1-1" },
-    {
-        name: "distance_track",
-        title: "Trk/Dist",
-        value: "5 0-1-1",
-    },
-    { name: "good", title: "Good", value: "5 0-1-1" },
-    { name: "soft", title: "Soft", value: "5 0-1-1" },
-    { name: "synthetic", title: "Synthetic", value: "5 0-1-1" },
-    { name: "first_up", title: "First Up", value: "5 0-1-1" },
-    { name: "second_up", title: "Second Up", value: "5 0-1-1" },
-];
-
 const prefStore = usePreferenceStore();
 
 const selectedForms = computed(() => {
@@ -29,49 +13,57 @@ const selectedForms = computed(() => {
         prefStore.selectedPreference.includes(stat.stat)
     );
 });
-
-// const selectedForms = ref(
-//     props.result.details.horse.stats.filter((stat) =>
-//         prefStore.selectedPreference.includes(stat.stat)
-//     )
-// );
 </script>
 <template>
-    <div class="flex flex-col flex-1">
-        <!-- <pre>{{ selectedForms }}</pre> -->
-        <div class="flex items-center gap-x-3">
-            <div
-                class="text-xs lg:text-sm leading-6 text-gray-900 w-48 lg:w-1/3"
-            >
-                {{ result.details.horse.horse_name }}
-            </div>
+    <div
+        class="flex flex-col flex-1 border mb-5 border-gray-300 rounded-md px-4 py-5 shadow-md"
+    >
+        <div class="flex flex-col">
+            <div class="flex items-center gap-x-3">
+                <div class="flex items-center w-40 lg:w-1/3">
+                    <div class="hidden sm:block">
+                        <img
+                            class="w-6 lg:w-8"
+                            :src="result.details.horse_race_info.colours_pic"
+                        />
+                    </div>
+                    <div class="ml-0 lg:ml-4">
+                        <div
+                            class="text-sm lg:text-base leading-6 text-gray-900 font-medium"
+                        >
+                            {{ result.details.horse.horse_name }}
+                        </div>
+                        <div
+                            class="flex items-center gap-x-2 text-sm leading-5 text-gray-700"
+                        >
+                            <p class="whitespace-nowrap">
+                                {{ result.details.race.meeting.track.name }}
+                            </p>
+                            <p class="truncate">
+                                R{{ result.details.race.race_number }}
+                            </p>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            {{ result.details.horse_race_info.last_starts }}
+                        </div>
+                    </div>
+                </div>
 
-            <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                <div
-                    class="bg-blue-600 text-blue-100 text-xs font-medium text-center p-0.5 leading-none rounded-full"
-                    :style="{ width: result.rating * 100 + '%' }"
-                >
-                    {{ Math.floor(result.rating * 100) }}
+                <div class="flex-1 bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div
+                        class="bg-blue-600 text-blue-100 text-xs font-medium text-center p-0.5 leading-none rounded-full"
+                        :style="{ width: result.rating * 100 + '%' }"
+                    >
+                        {{ Math.floor(result.rating * 100) }}
+                    </div>
                 </div>
             </div>
         </div>
-        <div
-            class="mt-1.5 flex items-center gap-x-2 text-xs leading-5 text-gray-500"
-        >
-            <p class="whitespace-nowrap">
-                {{ result.details.race.meeting.track.name }}
-            </p>
-            <p class="truncate">R{{ result.details.race.race_number }}</p>
-        </div>
         <!-- Selected Form Here -->
-        <FormListSelected :selectedForms="selectedForms" />
-        <div class="mt-2 flex items-center justify-between">
-            <div>
-                <img
-                    class="w-12 lg:w-16"
-                    :src="result.details.horse_race_info.colours_pic"
-                />
-            </div>
+        <div>
+            <FormListSelected :selectedForms="selectedForms" />
+        </div>
+        <div class="mt-2">
             <BrokerList />
         </div>
         <div class="mt-1">

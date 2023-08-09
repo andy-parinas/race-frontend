@@ -1,4 +1,5 @@
 <script setup>
+import { snakeCaseToTitleCase } from "~/utils/wordformat";
 const props = defineProps(["selectedForms"]);
 </script>
 <template>
@@ -10,8 +11,8 @@ const props = defineProps(["selectedForms"]);
             :key="form.stat"
             class="flex-1 text-center flex flex-col gap-y-1"
         >
-            <div class="font-medium text-gray-500 text-xs leading-5">
-                {{ form.stat }}
+            <div class="text-gray-600 text-xs leading-5">
+                {{ snakeCaseToTitleCase(form.stat) }}
             </div>
             <div
                 class="bg-orange-100 text-orange-700 ring-orange-600/20 ring-1 ring-inset rounded"
