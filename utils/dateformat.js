@@ -29,3 +29,7 @@ export function getNextDate(days = 1) {
 
     return nextDateTime.toFormat("yyyy-MM-dd");
 }
+
+export function toLocatedDate(date){
+
+}

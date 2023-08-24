@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useRaceStore = defineStore("races", {
     state: () => ({
         selectedRaceIds: [],
+        meetingDate: ''
     }),
     getters: {},
     actions: {
@@ -21,5 +22,9 @@ export const useRaceStore = defineStore("races", {
         clearAll() {
             this.selectedRaceIds = [];
         },
+        setMeetingDate(meetingDate){
+            this.meetingDate = meetingDate
+        },
+
     },
 });

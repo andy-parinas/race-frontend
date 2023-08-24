@@ -1,6 +1,8 @@
 <script setup>
 import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/20/solid";
+// import { ModalComponent } from "~/components";
 import { usePreferenceStore } from "~/stores/preferences";
+// import AddPreferenceModal from "~/components/AddPreferenceModal.vue";
 
 const preferenceStore = usePreferenceStore();
 
@@ -52,6 +54,9 @@ function removePreference(prefName) {
             :selected-preferences="preferenceStore.selectedPreference"
         />
     </aside>
+    <!-- <ModalComponent :open="openModal">
+        <h1>Test</h1>
+    </ModalComponent> -->
     <AddPreferenceModal
         @add="addPreference"
         :preferences="preferenceStore.availablePreferences"

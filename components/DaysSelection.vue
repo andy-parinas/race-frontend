@@ -3,6 +3,8 @@ import { DateTime } from "luxon";
 // import { emit } from "vue";
 const days = ref([]);
 
+const {meetingDate} = defineProps(['meetingDate'])
+
 function generateDays() {
     const days = [
         "Sunday",
@@ -41,11 +43,13 @@ function generateDays() {
     return dates;
 }
 
+
 const selectedDay = ref({
     day: "Today",
     fullDayName: "Today",
     date: DateTime.fromJSDate(new Date()).toFormat("yyyy-MM-dd"),
 });
+
 
 onMounted(() => {
     days.value = generateDays();
@@ -62,8 +66,9 @@ function setSectedDay(day) {
 <template>
     <div>
         <div class="flex items-center justify-between">
-            <div class="mr-10 lg:mr-0 text-xs uppercase">
-                {{ selectedDay.fullDayName }}'s Races
+            <div class="mr-10 lg:mr-0 text-xs uppercase flex items-center">
+              <div v-if="selectedDay.date === meetingDate" class="mr-3">{{ selectedDay.fullDayName }}'s Races</div>
+              <div v-else class="mr-3">{{ (new Date(meetingDate)).toLocaleDateString() }} Races</div>
             </div>
             <div
                 class="flex gap-x-1 items-center justify-start lg:justify-end mt-4 mb-2 px-1 py-2 flex-nowrap overflow-auto"
@@ -73,7 +78,7 @@ function setSectedDay(day) {
                     :key="day.date"
                     @click="setSectedDay(day)"
                     :class="[
-                        selectedDay.date == day.date
+                        selectedDay.date == day.date && selectedDay.date === meetingDate
                             ? 'bg-gray-300'
                             : 'bg-gray-100 hover:bg-gray-300 hover:cursor-pointer',
                         'uppercase text-xs text-center  text-gray-700 px-3 py-2 rounded',
