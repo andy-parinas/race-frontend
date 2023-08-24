@@ -50,7 +50,11 @@ watch(preferenceTrigger, async (newValue, oldValue) => {
             <NuxtLink class="text-sm text-blue-600" to="/races/all">
                 <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
             </NuxtLink>
-            <h1 class="text-base font-semibold leading-7">Analysis Results</h1>
+            <div class="flex-1 flex items-center justify-between">
+                <h1 class="text-base font-semibold leading-7">Analysis Results </h1>
+                <div> {{ (new Date(raceStore.meetingDate )).toLocaleDateString() }} </div>
+            </div>
+
         </header>
         <AnalysisResults :results="results" />
     </div>

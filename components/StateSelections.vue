@@ -1,9 +1,9 @@
 <script setup>
-const states = ["NSW", "NT", "VIC", "QLD", "SA", "TAS", "WA"];
+const states = ["ALL", "NSW", "NT", "VIC", "QLD", "SA", "TAS", "WA"];
 
 const emit = defineEmits(["onStateChange"]);
 
-const selectedState = ref("");
+const selectedState = ref("ALL");
 
 function setSelectedState(state) {
     selectedState.value = state;
@@ -22,7 +22,8 @@ function setSelectedState(state) {
                 selectedState === state
                     ? 'bg-orange-200'
                     : 'hover:bg-orange-200',
-                'text-orange-700 ring-orange-600/20 ring-1 ring-inset py-2 text-xs lg:text-sm w-16 text-center rounded  hover:cursor-pointer',
+                'text-orange-700 ring-orange-600/20 ring-1 ring-inset py-2 text-xs ' +
+                 'lg:text-sm w-16 text-center rounded  hover:cursor-pointer',
             ]"
         >
             {{ state }}
